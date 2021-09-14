@@ -42,6 +42,7 @@ public class HttpClient {
         while ((c = in.read()) != -1 && c != '\r') {
             result.append((char) c);
         }
+        //noinspection ResultOfMethodCallIgnored
         in.read();
         return result.toString();
     }
@@ -73,5 +74,9 @@ public class HttpClient {
 
     public int getContentLength() {
         return Integer.parseInt(getHeader("Content-Length"));
+    }
+
+    public String getMessageBody() {
+        return null;
     }
 }
