@@ -38,4 +38,11 @@ public class HttpClientTest {
         assertEquals(3741, client.getContentLength());
     }
 
+    @Test
+    void shouldReadMessageBody() throws IOException {
+        HttpClient client = new HttpClient("httpbin.org", 80,"/html");
+        assertTrue(
+                client.getMessageBody().startsWith("<!DOCTYPE html>\n<html"),
+                "should be html: " + client.getMessageBody());
+    }
 }
