@@ -18,17 +18,24 @@ public class HttpClient {
                         "Host: " + host + "\r\n" +
                         "\r\n").getBytes()
         );
-        StringBuilder result = new StringBuilder();
-        InputStream in = socket.getInputStream();
-        int c;
-        while ((c = in.read()) != -1) {
-            result.append((char) c);
-        }
-        String responseMessage = result.toString();
-        this.statusCode = Integer.parseInt(responseMessage.split(" ")[1]);
+
+        String statusLine = readLine(socket);
+
+        this.statusCode = Integer.parseInt(statusLine.split(" ")[1]);
     }
 
-        public int getStatusCode () {
+    private String readLine(Socket socket) throws IOException {
+        StringBuilder result = new StringBuilder();
+        InputStream in = socket.getInputStream();
+
+        int c;
+        while ((c = in.read()) != -1 && c != '\r') {
+            result.append((char) c);
+        }
+        return result.toString();
+    }
+
+    public int getStatusCode () {
             return statusCode;
         }
 
