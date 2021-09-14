@@ -11,5 +11,4 @@ public class HttpClientTest {
         assertEquals(42, 6*7);
     }
 
-
 }
