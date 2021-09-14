@@ -9,19 +9,16 @@ public class HttpClient {
 
     private final int statusCode;
     private final HashMap<String, String> headerFields = new HashMap<>();
-    private final String messageBody;
+    private String messageBody;
 
     public HttpClient(String host, int port, String requestTarget) throws IOException {
         Socket socket = new Socket(host, port);
-
-
         socket.getOutputStream().write(
                 ("GET " + requestTarget + " HTTP/1.1\r\n" +
                         "Connection: close \r\n" +
                         "Host: " + host + "\r\n" +
                         "\r\n").getBytes()
         );
-
 
         String statusLine = readLine(socket);
         this.statusCode = Integer.parseInt(statusLine.split(" ")[1]);
@@ -65,23 +62,6 @@ public class HttpClient {
             return statusCode;
         }
 
-    public static void main(String[] args) throws IOException {
-        Socket socket = new Socket("httpbin.org",80);
-
-        socket.getOutputStream().write(
-                ("GET /html HTTP/1.1\r\n" +
-                        "Connection: close \r\n" +
-                        "Host: httpbin.org\r\n" +
-                        "\r\n").getBytes()
-        );
-
-        InputStream in = socket.getInputStream();
-        int c;
-        while ((c = in.read()) != -1) {
-            System.out.print((char)c);
-        }
-    }
-
     public String getHeader(String headerName) {
         return headerFields.get(headerName);
     }
@@ -93,4 +73,10 @@ public class HttpClient {
     public String getMessageBody() {
         return messageBody;
     }
+
+    public static void main(String[] args) throws IOException {
+        HttpClient client = new HttpClient("httpbin.org", 80, "/html");
+        System.out.println(client.getMessageBody());
+    }
+
 }
