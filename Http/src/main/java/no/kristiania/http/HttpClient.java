@@ -56,4 +56,7 @@ public class HttpClient {
         }
     }
 
+    public String getHeader() {
+        return null;
+    }
 }

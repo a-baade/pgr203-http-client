@@ -26,4 +26,11 @@ public class HttpClientTest {
         assertEquals(404, client.getStatusCode());
     }
 
+    @Test
+    void shouldReturnHeaderField() throws IOException {
+        HttpClient client = new HttpClient("httpbin.org", 80,"/html");
+        assertEquals("text/html; charset=utf-8", client.getHeader());
+    }
+
+
 }
