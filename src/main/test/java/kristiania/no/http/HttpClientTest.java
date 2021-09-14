@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class HttpClientTest {
 
     @Test
-    void dummyTest() {
+     public void dummyTest() {
         assertEquals(42, 6*7);
     }
 
